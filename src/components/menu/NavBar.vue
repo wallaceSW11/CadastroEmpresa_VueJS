@@ -31,6 +31,10 @@ export default {
             //console.log('numeroPagina: ' + numeroPagina + ' pagina: ' + pagina + ' this.pagina: ' + this.pagina);
             if (this.pagina == numeroPagina) return;
 
+            if (numeroPagina == 4) {
+             localStorage.removeItem('usuario');
+            }
+
             this.pagina = numeroPagina;
             this.$router.push({ name: pagina });
         },

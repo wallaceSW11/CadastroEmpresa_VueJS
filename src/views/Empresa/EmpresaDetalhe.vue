@@ -83,16 +83,26 @@ export default {
         this.obterEmpresaPorCNPJ(cnpj);
     },
     methods: {
-        obterEmpresaPorCNPJ(cnpj){
-
+        obterEmpresaPorCNPJ(cnpj) {
             empresaService
                 .obterPorCNPJ(cnpj)
                 .then((response) => {
                     this.empresa = new Empresa(response.data);
                 })
-                .catch((error) =>
-                    console.log("Falha ao obter empresa por CNPJ: " + error)
-                );
+                .catch((error) => {
+                    if (error == "Error: Network Error") {
+                        let empresaFake = new Empresa({
+                            cnpj: "123456789565",
+                            razaoSocial: "The Best",
+                            cidade: "Terê",
+                            provedor: "WebISS",
+                            ativa: "true",
+                        });
+                        this.empresa = empresaFake;
+                        return;
+                    }
+                    console.log("Falha ao obter empresa por CNPJ: " + error);
+                });
         },
 
         salvar() {

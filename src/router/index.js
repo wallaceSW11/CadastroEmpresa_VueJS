@@ -1,12 +1,47 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import routes from './routes';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import routes from "./routes";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: 'history',
-  routes
-})
+    mode: "history",
+    routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+
+    let token = localStorage.getItem('usuario');
+
+    if (to.name == 'Login'){
+
+        if (token){
+          next({name: 'Dashboad'});
+        } else {
+          next();
+        }
+    } else if (to.matched.some(rota => rota.meta.requiredAuth)){
+
+      if (token == null) {
+        next({
+          path: "/login",
+          params: {nextUrl: to.fullPath}
+        });
+
+      } else {
+        next();
+      }
+
+    } else {
+
+      if(token == null){
+        next();
+
+      }else{
+        next({name: 'Dashboard'})
+      }
+    }
+
+});
+
+export default router;

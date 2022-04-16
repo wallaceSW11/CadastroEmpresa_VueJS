@@ -1,7 +1,9 @@
 import api from "./api";
 
 function login(codigo, senha){
-   return !(codigo && senha);
+   //return !(codigo && senha);
+
+   return (codigo == 'wallace' && senha == 'senhas');
 
     // return new Promise((resolve, reject) => {
     //     return api.post(`/login`, { codigo, senha})

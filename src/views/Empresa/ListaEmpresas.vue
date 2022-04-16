@@ -19,7 +19,9 @@
                         <td>{{ empresa.razaoSocial }}</td>
                         <td>{{ empresa.cidade }}</td>
                         <td>{{ empresa.provedor }}</td>
-                        <td class="centralizado">{{ empresa.ativa | booleanToString }}</td>
+                        <td class="centralizado">
+                            {{ empresa.ativa | booleanToString }}
+                        </td>
                         <td>
                             <i
                                 @click="editarEmpresa(empresa)"
@@ -36,7 +38,7 @@
 <script>
 import Empresa from "@/models/Empresa";
 import Title from "@/components/title/Title.vue";
-import BooleanString from '@/utils/conversores/BooleanString';
+import BooleanString from "@/utils/conversores/BooleanString";
 import empresaService from "@/services/empresa-service";
 
 export default {
@@ -52,24 +54,35 @@ export default {
     filters: {
         booleanToString(valor) {
             return BooleanString.booleanToString(valor);
-        }
+        },
     },
     mounted() {
         this.obterEmpresas();
     },
 
     methods: {
-        obterEmpresas(){
+        obterEmpresas() {
             empresaService
-              .obterTodas()
-              .then((response) => {
-                  let empresas = response.data.map((e) => new Empresa(e));
-                  this.empresas = empresas;
-              })
-              .catch((error) => {
-                  console.log('Falha ao obterEmpresas: ' + error);
-              })
+                .obterTodas()
+                .then((response) => {
+                    let empresas = response.data.map((e) => new Empresa(e));
+                    this.empresas = empresas;
+                })
+                .catch((error) => {
+                    if (error == "Error: Network Error") {
+                        let empresaFake = new Empresa({
+                            cnpj: "123456789565",
+                            razaoSocial: "The Best",
+                            cidade: "Terê",
+                            provedor: "WebISS",
+                            ativa: "true",
+                        });
+                        this.empresas.push(empresaFake);
+                        return;
+                    }
 
+                    console.log("Falha ao obterEmpresas: " + error);
+                });
         },
         editarEmpresa(empresa) {
             this.$router.push({
@@ -82,7 +95,6 @@ export default {
 </script>
 
 <style scoped>
-
 .cnpj {
     max-width: 80px;
 }
