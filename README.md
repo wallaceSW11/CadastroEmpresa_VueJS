@@ -1,2 +1,2 @@
-# CadastroEmpresa_VueJS
-Mini cadastro de empresa feito em VueJS
+# Cadastro de empresa feito em VueJS
+
