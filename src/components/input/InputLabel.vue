@@ -1,7 +1,7 @@
 <template>
     <div>
         <label for="input">{{ label }}</label> <br />
-        <input :type="type" :placeholder="placeHolder" v-model="valor" />
+        <input :type="type" :placeholder="placeHolder" v-model="value" />
     </div>
 </template>
 

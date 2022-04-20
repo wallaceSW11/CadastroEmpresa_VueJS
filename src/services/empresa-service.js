@@ -13,12 +13,12 @@ function obterPorCNPJ(cnpj) {
     return new Promise((resolve, reject) => {
         return api
             .get(`/empresa/${cnpj}`)
-            .then((respose) => resolve(respose))
+            .then((response) => resolve(response))
             .catch((error) => reject(error));
     });
 }
 
 export default {
     obterTodas,
-    obterPorCNPJ
-}
+    obterPorCNPJ,
+};

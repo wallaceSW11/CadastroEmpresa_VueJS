@@ -69,20 +69,8 @@ export default {
                     this.empresas = empresas;
                 })
                 .catch((error) => {
-                    if (error == "Error: Network Error") {
-                        let empresaFake = new Empresa({
-                            cnpj: "123456789565",
-                            razaoSocial: "The Best",
-                            cidade: "Terê",
-                            provedor: "WebISS",
-                            ativa: "true",
-                        });
-                        this.empresas.push(empresaFake);
-                        return;
-                    }
-
-                    console.log("Falha ao obterEmpresas: " + error);
-                });
+                    console.log('Falha ao obter todas as empresas: ' + error);
+                })
         },
         editarEmpresa(empresa) {
             this.$router.push({
