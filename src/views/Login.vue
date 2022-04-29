@@ -35,17 +35,19 @@ export default {
         logar() {
             console.log(this.usuario);
 
-            if (!this.usuario.modeloValido()){
-                alert("Usuário e senha deverão ser informados")
+            if (!this.usuario.modeloValido()) {
+                alert("Usuário e senha deverão ser informados");
                 return;
             }
 
-            if (!usuarioService.login(this.usuario.codigo, this.usuario.senha)) {
-                alert('Usuário ou senha inválido')
+            if (
+                !usuarioService.login(this.usuario.codigo, this.usuario.senha)
+            ) {
+                alert("Usuário ou senha inválido");
                 return;
             }
 
-            localStorage.setItem('usuario', this.usuario.codigo);
+            localStorage.setItem("usuario", this.usuario.codigo);
 
             this.$router.push({ name: "Dashboard" });
         },

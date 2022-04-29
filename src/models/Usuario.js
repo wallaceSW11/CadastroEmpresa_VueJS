@@ -7,6 +7,7 @@ export default class Usuario {
     }
 
     modeloValido(){
+        console.log('modelo valido');
         return !!(this.codigo && this.senha);
     }
 }

@@ -3,16 +3,16 @@ import api from "./api";
 function obterTodas() {
     return new Promise((resolve, reject) => {
         return api
-            .get("/empresa")
+            .get("enterprise")
             .then((response) => resolve(response))
             .catch((error) => reject(error));
     });
 }
 
-function obterPorCNPJ(cnpj) {
+function obterPorCNPJ(id) {
     return new Promise((resolve, reject) => {
         return api
-            .get(`/empresa/${cnpj}`)
+            .get(`/enterprise/${id}`)
             .then((response) => resolve(response))
             .catch((error) => reject(error));
     });

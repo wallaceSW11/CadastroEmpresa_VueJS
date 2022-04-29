@@ -9,22 +9,22 @@
                         <th>Empresa</th>
                         <th>Cidade</th>
                         <th>Provedor</th>
-                        <th class="centralizado">Ativa</th>
+                        <!-- <th class="centralizado">Ativa</th> -->
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="empresa in empresas" :key="empresa.cnpj">
-                        <td class="cnpj">{{ empresa.cnpj }}</td>
-                        <td>{{ empresa.razaoSocial }}</td>
-                        <td>{{ empresa.cidade }}</td>
-                        <td>{{ empresa.provedor }}</td>
-                        <td class="centralizado">
+                    <tr v-for="enterprise in enterprises" :key="enterprise.id">
+                        <td class="cnpj">{{ enterprise.identification }}</td>
+                        <td>{{ enterprise.name }}</td>
+                        <td>{{ enterprise.city }}</td>
+                        <td>{{ enterprise.provider }}</td>
+                        <!-- <td class="centralizado">
                             {{ empresa.ativa | booleanToString }}
-                        </td>
+                        </td> -->
                         <td>
                             <i
-                                @click="editarEmpresa(empresa)"
+                                @click="editarEmpresa(enterprise)"
                                 class="fas fa-pencil-alt icones-tabela"
                             ></i>
                         </td>
@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import Empresa from "@/models/Empresa";
+// import Empresa from "@/models/Empresa";
+import Enterprise from "@/models/Enterprise";
 import Title from "@/components/title/Title.vue";
 import BooleanString from "@/utils/conversores/BooleanString";
 import empresaService from "@/services/empresa-service";
@@ -45,7 +46,7 @@ export default {
     name: "Empresas",
     data() {
         return {
-            empresas: [],
+            enterprises: [],
         };
     },
     components: {
@@ -65,17 +66,18 @@ export default {
             empresaService
                 .obterTodas()
                 .then((response) => {
-                    let empresas = response.data.map((e) => new Empresa(e));
-                    this.empresas = empresas;
+                    let enterprises = response.data.map((e) => new Enterprise(e));
+                    this.enterprises = enterprises;
                 })
                 .catch((error) => {
-                    console.log('Falha ao obter todas as empresas: ' + error);
+                    console.log('Falha ao obter todas as empresas:');
+                    console.log(error);
                 })
         },
-        editarEmpresa(empresa) {
+        editarEmpresa(enterprise) {
             this.$router.push({
                 name: "EmpresaDetalhe",
-                params: { cnpj: empresa.cnpj },
+                params: { id: enterprise.id },
             });
         },
     },

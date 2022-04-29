@@ -5,30 +5,30 @@
         <div class="content" id="dadosEmpresa">
             <div class="row">
                 <div class="row col-sm-3">
-                    <InputLabel label="CNPJ" v-model="empresa.cnpj" />
+                    <InputLabel label="CNPJ" v-model="enterprise.identification" />
                 </div>
                 <div class="row col-sm-7">
                     <InputLabel
                         label="Razão social"
-                        v-model="empresa.razaoSocial"
+                        v-model="enterprise.name"
                     />
                 </div>
                 <div class="row col-sm-2 mt-4">
                     <div class="form-check-inline">
-                        <label class="form-check-label">
+                        <!-- <label class="form-check-label">
                             <input
                                 v-model="empresa.ativa"
                                 type="checkbox"
                                 class="form-check-input"
                             />
                             Ativa
-                        </label>
+                        </label> -->
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="row col-sm-4">
-                    <InputLabel label="Cidade" v-model="empresa.cidade" />
+                    <InputLabel label="Cidade" v-model="enterprise.city" />
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="content" id="dadosIntegracao">
             <div class="row">
                 <div class="row col-sm-4">
-                    <InputLabel label="Provedor" v-model="empresa.provedor" />
+                    <InputLabel label="Provedor" v-model="enterprise.provider" />
                     <InputLabel label="Tipo de integracao" />
                 </div>
             </div>
@@ -60,7 +60,7 @@
 import Title from "@/components/title/Title.vue";
 import InputLabel from "@/components/input/InputLabel.vue";
 import Button from "@/components/button/Button.vue";
-import Empresa from "@/models/Empresa";
+import Enterprise from "@/models/Enterprise";
 import empresaService from "@/services/empresa-service";
 
 export default {
@@ -72,24 +72,26 @@ export default {
     },
     data() {
         return {
-            empresa: new Empresa(),
+            enterprise: new Enterprise(),
         };
     },
     mounted() {
-        let cnpj = this.$route.params.cnpj;
-        if (!cnpj) return;
-        console.log('cnpj valido');
-        this.obterEmpresaPorCNPJ(cnpj);
+        let id = this.$route.params.id;
+        if (!id) return;
+        this.obterEmpresaPorCNPJ(id);
     },
     methods: {
-        obterEmpresaPorCNPJ(cnpj) {
+        obterEmpresaPorCNPJ(id) {
             empresaService
-                .obterPorCNPJ(cnpj)
+                .obterPorCNPJ(id)
                 .then((response) => {
-                    this.empresa = new Empresa(response.data);
+                    this.enterprise = new Enterprise();
+                    this.enterprise = new Enterprise(response.data);
+                    console.log(this.enterprise);
                 })
                 .catch((error) => {
-                    console.log("Falha ao obter empresa por CNPJ: " + error);
+                    console.log("Falha ao obter empresa por CNPJ: ");
+                    console.log(error);
                 });
         },
 
