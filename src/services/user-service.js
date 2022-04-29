@@ -1,9 +1,7 @@
 import api from "./api";
 
-function login(codigo, senha){
-   //return !(codigo && senha);
-
-   return (codigo == 'wallace' && senha == 'senhas');
+function login(code, password){
+   return (code == '123456' && password == 'senhas');
 
     // return new Promise((resolve, reject) => {
     //     return api.post(`/login`, { codigo, senha})
@@ -12,9 +10,9 @@ function login(codigo, senha){
     // });
 }
 
-function obterPorId(id){
+function getById(id){
     return new Promise((resolve, reject) => {
-        return api.get(`/usuario/${id}`)
+        return api.get(`/user/${id}`)
         .then(response => resolve(response))
         .catch(error => reject(error));
     });
@@ -22,5 +20,5 @@ function obterPorId(id){
 
 export default {
     login,
-    obterPorId
+    getById
 }

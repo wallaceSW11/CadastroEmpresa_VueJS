@@ -1,6 +1,6 @@
 import api from "./api";
 
-function obterTodas() {
+function getAll() {
     return new Promise((resolve, reject) => {
         return api
             .get("enterprise")
@@ -9,7 +9,7 @@ function obterTodas() {
     });
 }
 
-function obterPorCNPJ(id) {
+function getById(id) {
     return new Promise((resolve, reject) => {
         return api
             .get(`/enterprise/${id}`)
@@ -19,6 +19,6 @@ function obterPorCNPJ(id) {
 }
 
 export default {
-    obterTodas,
-    obterPorCNPJ,
+    getAll,
+    getById,
 };

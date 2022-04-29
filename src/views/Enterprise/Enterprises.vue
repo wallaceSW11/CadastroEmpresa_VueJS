@@ -1,30 +1,26 @@
 <template>
     <div class="container">
-        <Title titulo="Empresas" />
+        <Title titulo="Enterprises" />
         <div class="content">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>CNPJ</th>
-                        <th>Empresa</th>
-                        <th>Cidade</th>
-                        <th>Provedor</th>
-                        <!-- <th class="centralizado">Ativa</th> -->
+                        <th>Identification</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>provider</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="enterprise in enterprises" :key="enterprise.id">
-                        <td class="cnpj">{{ enterprise.identification }}</td>
+                        <td class="identification">{{ enterprise.identification }}</td>
                         <td>{{ enterprise.name }}</td>
                         <td>{{ enterprise.city }}</td>
                         <td>{{ enterprise.provider }}</td>
-                        <!-- <td class="centralizado">
-                            {{ empresa.ativa | booleanToString }}
-                        </td> -->
                         <td>
                             <i
-                                @click="editarEmpresa(enterprise)"
+                                @click="editEnterprise(enterprise)"
                                 class="fas fa-pencil-alt icones-tabela"
                             ></i>
                         </td>
@@ -36,14 +32,13 @@
 </template>
 
 <script>
-// import Empresa from "@/models/Empresa";
 import Enterprise from "@/models/Enterprise";
 import Title from "@/components/title/Title.vue";
 import BooleanString from "@/utils/conversores/BooleanString";
-import empresaService from "@/services/empresa-service";
+import enterpriseService from "@/services/enterprise-service";
 
 export default {
-    name: "Empresas",
+    name: "Enterprises",
     data() {
         return {
             enterprises: [],
@@ -58,25 +53,25 @@ export default {
         },
     },
     mounted() {
-        this.obterEmpresas();
+        this.getEnterprises();
     },
 
     methods: {
-        obterEmpresas() {
-            empresaService
-                .obterTodas()
+        getEnterprises() {
+            enterpriseService
+                .getAll()
                 .then((response) => {
                     let enterprises = response.data.map((e) => new Enterprise(e));
                     this.enterprises = enterprises;
                 })
                 .catch((error) => {
-                    console.log('Falha ao obter todas as empresas:');
+                    console.log('Erro trying get all enterprises:');
                     console.log(error);
                 })
         },
-        editarEmpresa(enterprise) {
+        editEnterprise(enterprise) {
             this.$router.push({
-                name: "EmpresaDetalhe",
+                name: "EnterpriseDetail",
                 params: { id: enterprise.id },
             });
         },
@@ -85,10 +80,8 @@ export default {
 </script>
 
 <style scoped>
-.cnpj {
+.identification {
     max-width: 80px;
-}
-.centralizado {
-    text-align: center;
+    min-width: 70px;
 }
 </style>

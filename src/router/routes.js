@@ -1,7 +1,7 @@
 import Login from '@/views/Login.vue';
 import Dashboard from '@/views/Dashboard.vue';
-import ListaEmpresas from '@/views/Empresa/ListaEmpresas.vue';
-import EmpresaDetalhe from '@/views/Empresa/EmpresaDetalhe.vue';
+import Enterprises from '@/views/Enterprise/Enterprises.vue';
+import EnterpriseDetail from '@/views/Enterprise/EnterpriseDetail.vue';
 import Relatorios from '@/views/Relatorios.vue';
 import Ferramentas from '@/views/Ferramentas.vue';
 
@@ -21,17 +21,17 @@ const routes = [
       meta: { requiredAuth: false}
     },
     {
-      path: '/empresas',
-      name: 'Empresas',
-      component: ListaEmpresas,
-      title: 'Empresas',
+      path: '/enterprises',
+      name: 'Enterprises',
+      component: Enterprises,
+      title: 'Enterprises',
       meta: { requiredAuth: true}
     },
     {
-      path: '/empresas/detalhe',
-      name: 'EmpresaDetalhe',
-      component: EmpresaDetalhe,
-      title: 'Empresa',
+      path: '/enterprise/detail',
+      name: 'EnterpriseDetail',
+      component: EnterpriseDetail,
+      title: 'Enterprise',
       meta: { requiredAuth: true}
     },
     {

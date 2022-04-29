@@ -1,6 +1,6 @@
 <template>
     <div class="title">
-        <h2>{{titulo}}</h2>
+        <h2>{{text}}</h2>
         <hr />
     </div>
 </template>
@@ -9,7 +9,7 @@
 export default {
     name: 'Title',
     props: {
-        titulo: { type: String, default: '' }
+        text: { type: String, default: '' }
     }
 }
 </script>

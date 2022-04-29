@@ -4,7 +4,7 @@
             <a @click="irParaPagina(0, 'Dashboard')">Dashboard</a>
         </li>
         <li :class="pagina == 1 ? 'selecionado' : 'disponivel'">
-            <a @click="irParaPagina(1, 'Empresas')">Empresas</a>
+            <a @click="irParaPagina(1, 'Enterprises')">Enterprises</a>
         </li>
         <li :class="pagina == 2 ? 'selecionado' : 'disponivel'">
             <a @click="irParaPagina(2, 'Relatorios')">Relatórios</a>
@@ -40,7 +40,7 @@ export default {
         },
     },
     mounted() {
-        this.pagina = this.$route.name == 'Empresas' ? 1 : 0;
+        this.pagina = this.$route.name == 'Enterprises' ? 1 : 0;
     },
 };
 </script>

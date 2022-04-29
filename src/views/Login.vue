@@ -4,12 +4,12 @@
         <div class="title"><h1>ISS-Easy</h1></div>
         <div class="login">
             <InputLabel
-                label="Código"
-                placeHolder="Código do cliente na Alterdata"
-                v-model="usuario.codigo"
+                label="Code"
+                placeHolder="Access code"
+                v-model="user.code"
             />
-            <InputLabel label="Senha" type="password" v-model="usuario.senha" />
-            <Button text="Acessar" :callback="logar" />
+            <InputLabel label="Password" type="password" v-model="user.password" />
+            <Button text="Sign in" :callback="signIn" />
         </div>
     </div>
 </template>
@@ -17,8 +17,8 @@
 <script>
 import InputLabel from "@/components/input/InputLabel.vue";
 import Button from "@/components/button/Button.vue";
-import Usuario from "@/models/Usuario";
-import usuarioService from "@/services/usuario-service.js";
+import User from "@/models/User";
+import userService from "@/services/user-service.js";
 
 export default {
     name: "Login",
@@ -28,26 +28,23 @@ export default {
     },
     data() {
         return {
-            usuario: new Usuario(),
+            user: new User(),
         };
     },
     methods: {
-        logar() {
-            console.log(this.usuario);
+        signIn() {
 
-            if (!this.usuario.modeloValido()) {
-                alert("Usuário e senha deverão ser informados");
+            if (!this.user.modelValid()) {
+                alert("Code and password must be informed");
                 return;
             }
 
-            if (
-                !usuarioService.login(this.usuario.codigo, this.usuario.senha)
-            ) {
-                alert("Usuário ou senha inválido");
+            if (!userService.login(this.user.code, this.user.password)) {
+                alert("Code or password invalid!");
                 return;
             }
 
-            localStorage.setItem("usuario", this.usuario.codigo);
+            localStorage.setItem("user", this.user.code);
 
             this.$router.push({ name: "Dashboard" });
         },
