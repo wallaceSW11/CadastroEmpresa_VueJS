@@ -91,7 +91,10 @@ export default {
 
             enterpriseService
                 .saveEnterprise(this.enterprise)
-                .then(this.$router.push({ name: "Enterprises" }))
+                .then(() => {
+                   // alert('Salvo com sucesso'),
+                    this.$router.push({ name: "Enterprises" })
+                })
                 .catch(error => alert('Error trying update the enterprise: ' + error));
         },
         cancelRegistration() {

@@ -13,8 +13,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-show="!enterprises"><td colspan="5" class="text-center"><span>No enterprise was found</span></td></tr>
-                    <tr v-for="enterprise in enterprises" :key="enterprise.id">
+                    <tr v-show="enterprise == []">
+                        <td colspan="5" class="text-center"><span>There are no enterprise registered</span></td>
+                    </tr>
+                    <tr  v-for="enterprise in enterprises" :key="enterprise.id">
                         <td class="identification">{{ enterprise.identification }}</td>
                         <td>{{ enterprise.name }}</td>
                         <td>{{ enterprise.city }}</td>
@@ -55,7 +57,6 @@ export default {
     },
 
     mounted() {
-       // this.enterprises = []
         this.getEnterprises();
     },
 
