@@ -32,7 +32,7 @@ export default {
             if (this.pagina == numeroPagina) return;
 
             if (numeroPagina == 4) {
-             localStorage.removeItem('usuario');
+             localStorage.removeItem('user');
             }
 
             this.pagina = numeroPagina;

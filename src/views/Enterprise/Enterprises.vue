@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Title titulo="Enterprises" />
+        <Title text="Enterprises" />
         <div class="content">
             <table class="table table-hover">
                 <thead>
@@ -8,11 +8,12 @@
                         <th>Identification</th>
                         <th>Name</th>
                         <th>City</th>
-                        <th>provider</th>
-                        <th></th>
+                        <th>Provider</th>
+                        <th><i>Actions</i></th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr v-show="!enterprises"><td colspan="5" class="text-center"><span>No enterprise was found</span></td></tr>
                     <tr v-for="enterprise in enterprises" :key="enterprise.id">
                         <td class="identification">{{ enterprise.identification }}</td>
                         <td>{{ enterprise.name }}</td>
@@ -52,7 +53,9 @@ export default {
             return BooleanString.booleanToString(valor);
         },
     },
+
     mounted() {
+       // this.enterprises = []
         this.getEnterprises();
     },
 
@@ -83,5 +86,8 @@ export default {
 .identification {
     max-width: 80px;
     min-width: 70px;
+}
+.text-center {
+    text-align: center;
 }
 </style>

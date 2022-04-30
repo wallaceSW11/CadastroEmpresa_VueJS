@@ -1,13 +1,13 @@
 <template>
     <div class="container">
-        <Title titulo="Company details" />
+        <Title text="Company details" />
 
         <div class="content" id="enterpriseData">
             <div class="row">
                 <div class="row col-sm-3">
                     <InputLabel label="Identification (CNPJ)" v-model="enterprise.identification" />
                 </div>
-                <div class="row col-sm-7">
+                <div class="row col-sm-8">
                     <InputLabel
                         label="Corporate name"
                         v-model="enterprise.name"
@@ -22,18 +22,22 @@
                 <div class="row col-sm-4">
                     <InputLabel label="City" v-model="enterprise.city" />
                 </div>
+                <div class="row col-sm-4">
+                    <InputLabel label="Provider" v-model="enterprise.provider" />
+                </div>
             </div>
+
         </div>
 
 
 
         <div>
             <div class="actions">
-                <Button text="Save" :callback="save" />
+                <Button text="Save" :callback="saveRegistration" />
                 <div class="space"></div>
                 <Button
                     text="Cancel"
-                    :callback="cancel"
+                    :callback="cancelRegistration"
                     :secondary="true"
                 />
             </div>
@@ -78,12 +82,19 @@ export default {
                 });
         },
 
-        save() {
-            // enterpriseService.Save(this.enterprise);
+        saveRegistration() {
 
-            this.$router.push({ name: "Enterprises" });
+            if (!this.enterprise.modelValid()) {
+                alert('Invalid model');
+                return;
+            }
+
+            enterpriseService
+                .saveEnterprise(this.enterprise)
+                .then(this.$router.push({ name: "Enterprises" }))
+                .catch(error => alert('Error trying update the enterprise: ' + error));
         },
-        cancel() {
+        cancelRegistration() {
             this.$router.push({ name: "Enterprises" });
         },
     },

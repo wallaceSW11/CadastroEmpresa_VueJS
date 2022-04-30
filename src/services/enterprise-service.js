@@ -18,7 +18,28 @@ function getById(id) {
     });
 }
 
+function saveEnterprise(enterprise) {
+    return new Promise((resolve, reject) => {
+        return api
+            .put(`/enterprise/${enterprise.id}`, enterprise)
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+    });
+}
+
+function create(enterprise) {
+    return new Promise((resolve, reject) => {
+        console.log('create');
+        return api
+            .post(`/enterprise`, enterprise)
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+    });
+}
+
 export default {
     getAll,
     getById,
+    saveEnterprise,
+    create
 };

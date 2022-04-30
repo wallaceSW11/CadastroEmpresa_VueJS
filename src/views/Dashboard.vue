@@ -7,22 +7,22 @@
                 <thead>
                     <tr>
                         <th>Status</th>
-                        <th>Quantidade</th>
+                        <th>Quantity</th>
                     </tr>
                     <tr>
-                        <td>Envio pendente</td>
+                        <td>To send</td>
                         <td>2</td>
                     </tr>
                     <tr>
-                        <td>Retorno pendente</td>
+                        <td>Waiting response</td>
                         <td>2</td>
                     </tr>
                     <tr>
-                        <td>Envio cancelamento</td>
+                        <td>Cancellation to send</td>
                         <td>0</td>
                     </tr>
                     <tr>
-                        <td>Retorno cancelamento</td>
+                        <td>Waiting cancellation</td>
                         <td>0</td>
                     </tr>
                 </thead>

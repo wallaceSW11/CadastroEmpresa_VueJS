@@ -19,9 +19,7 @@ export default {
         value: { type: String, default: '' },
     },
     data() {
-        return {
-            //valor: this.value,
-        };
+        return {};
     },
     computed: {
         inputValue: {

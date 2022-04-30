@@ -8,4 +8,14 @@ export default class Enterprise {
         this.city = obj.city;
         this.provider = obj.provider;
     }
+
+    modelValid(){
+        return !!(
+            this.id &&
+            this.identification &&
+            this.name &&
+            this.city &&
+            this.provider
+        )
+    }
 }
