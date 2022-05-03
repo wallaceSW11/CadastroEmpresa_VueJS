@@ -4,8 +4,11 @@
 
         <div class="content" id="enterpriseData">
             <div class="row">
-                <div class="row col-sm-3">
-                    <InputLabel label="Identification (CNPJ)" v-model="enterprise.identification" />
+                <div class="row col-sm-3 min-px">
+                    <InputLabel
+                        label="Identification (CNPJ)"
+                        v-model="enterprise.identification"
+                    />
                 </div>
                 <div class="row col-sm-8">
                     <InputLabel
@@ -14,8 +17,7 @@
                     />
                 </div>
                 <div class="row col-sm-2 mt-4">
-                    <div class="form-check-inline">
-                    </div>
+                    <div class="form-check-inline"></div>
                 </div>
             </div>
             <div class="row">
@@ -23,13 +25,13 @@
                     <InputLabel label="City" v-model="enterprise.city" />
                 </div>
                 <div class="row col-sm-4">
-                    <InputLabel label="Provider" v-model="enterprise.provider" />
+                    <InputLabel
+                        label="Provider"
+                        v-model="enterprise.provider"
+                    />
                 </div>
             </div>
-
         </div>
-
-
 
         <div>
             <div class="actions">
@@ -51,6 +53,7 @@ import InputLabel from "@/components/input/InputLabel.vue";
 import Button from "@/components/button/Button.vue";
 import Enterprise from "@/models/Enterprise";
 import enterpriseService from "@/services/enterprise-service";
+import Message from "@/utils/messages/message";
 
 export default {
     name: "EnterpriseDetail",
@@ -83,19 +86,43 @@ export default {
         },
 
         saveRegistration() {
+            if (this.enterprise.modelInvalid()) {
+                Message.information(
+                    "warning",
+                    "Invalid model",
+                    this.enterprise._invalidDescription
+                );
+                return;
+            }
 
-            if (!this.enterprise.modelValid()) {
-                alert('Invalid model');
+            if (this.enterprise.id == null) {
+                enterpriseService
+                    .createEnterprise(this.enterprise)
+                    .then(() => {
+                        Message.information(
+                            "success",
+                            "Registration",
+                            "Created successfull"
+                        );
+                        this.$router.push({ name: "Enterprises" });
+                    })
+                    .catch((error) => {
+                        this.$swal({
+                            icon: "error",
+                            title: "Crash",
+                            text: error,
+                            animate: true,
+                        });
+                    });
                 return;
             }
 
             enterpriseService
                 .saveEnterprise(this.enterprise)
                 .then(() => {
-                   // alert('Salvo com sucesso'),
-                    this.$router.push({ name: "Enterprises" })
+                    this.$router.push({ name: "Enterprises" });
                 })
-                .catch(error => alert('Error trying update the enterprise: ' + error));
+                .catch((error) => Message.information("error", "Failure", error));
         },
         cancelRegistration() {
             this.$router.push({ name: "Enterprises" });
@@ -123,7 +150,7 @@ export default {
     display: block;
 }
 
-/* #dadosIntegracao{
-    display: block;
-} */
+.min-px {
+    min-width: 145px;
+}
 </style>

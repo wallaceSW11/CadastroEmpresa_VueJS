@@ -1,7 +1,7 @@
 <template>
     <div>
-        <label for="input">{{ label }}</label> <br />
-        <input :type="type" :placeholder="placeHolder" v-model="inputValue" />
+        <label for="input" class="labelClass">{{ label }}</label> <br />
+        <input :type="type" :placeholder="placeHolder" v-model="inputValue"/>
     </div>
 </template>
 
@@ -45,5 +45,12 @@ input {
     border: 1px solid var(--primary-color);
     outline: none;
     box-sizing: border-box;
+    min-width: 145px;
 }
+
+.labelClass{
+    min-width: 145px;
+}
+
+
 </style>

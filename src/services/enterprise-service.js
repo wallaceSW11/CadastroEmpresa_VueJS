@@ -27,11 +27,25 @@ function saveEnterprise(enterprise) {
     });
 }
 
-function create(enterprise) {
+function createEnterprise(enterprise) {
     return new Promise((resolve, reject) => {
-        console.log('create');
         return api
             .post(`/enterprise`, enterprise)
+            .then((response) => resolve(response))
+            .catch((error) => {
+                if (error.response.status == 409) {
+                    reject(error.response.data.message)
+                } else {
+                    reject(error.response.data.errors)
+                }
+            });
+    });
+}
+
+function deleteEnterprise(id) {
+    return new Promise((resolve, reject) => {
+        return api
+            .delete(`/enterprise/${id}`)
             .then((response) => resolve(response))
             .catch((error) => reject(error));
     });
@@ -41,5 +55,6 @@ export default {
     getAll,
     getById,
     saveEnterprise,
-    create
+    createEnterprise,
+    deleteEnterprise
 };
