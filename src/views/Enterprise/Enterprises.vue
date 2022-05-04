@@ -13,7 +13,7 @@
                             <i>Actions</i>
                             <i
                                 @click="addEnterprise()"
-                                class="fas fa-solid fa-plus pointer"
+                                class="fas fa-solid fa-plus pointer icones-tabela"
                             ></i>
                         </th>
                     </tr>
@@ -53,7 +53,7 @@ import Enterprise from "@/models/Enterprise";
 import Title from "@/components/title/Title.vue";
 import BooleanString from "@/utils/conversores/BooleanString";
 import enterpriseService from "@/services/enterprise-service";
-import Message from '@/utils/messages/message';
+import Message from "@/utils/messages/message";
 
 export default {
     name: "Enterprises",
@@ -96,22 +96,27 @@ export default {
                 params: { id: enterprise.id },
             });
         },
-        addEnterprise(){
+        addEnterprise() {
             this.$router.push({
                 name: "EnterpriseDetail",
             });
         },
-        deleteEnterprise(enterprise){
-            if (!Message.confirm("Delete enterprise", "Confirm delete the enterprise?")) return;
-
-            enterpriseService
-                .deleteEnterprise(enterprise.id)
-                .then(() => {
-                    alert('Deleted success')
-                    this.getEnterprises();
-                    })
-                .catch((error) => alert(error));
-        }
+        deleteEnterprise(enterprise) {
+            Message.confirm(
+                "",
+                "Are you sure you want to delete the enterprise?"
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    enterpriseService
+                        .deleteEnterprise(enterprise.id)
+                        .then(() => {
+                            Message.information("success", "Successfully deleted", '');
+                            this.getEnterprises();
+                        })
+                        .catch((error) => alert(error));
+                }
+            });
+        },
     },
 };
 </script>

@@ -35,8 +35,7 @@ function createEnterprise(enterprise) {
             .catch((error) => {
                 if (error.response.status == 409) {
                     reject(error.response.data.message)
-                } else {
-                    reject(error.response.data.errors)
+                } else {reject(JSON.stringify(error.response.data.errors))
                 }
             });
     });

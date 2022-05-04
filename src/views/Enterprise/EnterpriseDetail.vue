@@ -101,15 +101,15 @@ export default {
                     .then(() => {
                         Message.information(
                             "success",
-                            "Registration",
-                            "Created successfull"
+                            "",
+                            "Successfull created"
                         );
                         this.$router.push({ name: "Enterprises" });
                     })
                     .catch((error) => {
                         this.$swal({
                             icon: "error",
-                            title: "Crash",
+                            title: "Fail",
                             text: error,
                             animate: true,
                         });

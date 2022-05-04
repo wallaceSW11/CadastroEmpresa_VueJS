@@ -14,21 +14,18 @@ function information(type, title, text) {
 function confirm(title, text) {
     var sweetAlert = new Vue().$swal;
 
-    sweetAlert({
+    return sweetAlert({
         icon: "question",
         title: title,
         text: text,
         confirmButtonColor: "#002984",
         showCancelButton: true,
-        confirmButtonText: 'Yes',
+        confirmButtonText: "Yes",
         animate: true,
-    })
-    .then((result) => {
-        return (result.isConfirmed)
     });
 }
 
 export default {
     information,
-    confirm
+    confirm,
 };
