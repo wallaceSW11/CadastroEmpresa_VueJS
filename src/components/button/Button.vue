@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="button-style">
         <button :class=" secondary ? 'secundaria' : 'primaria'" @click="callback">{{ text }}</button>
     </div>
 </template>
@@ -14,13 +14,18 @@ export default {
     },
     data() {
         return {
-            
+
         }
     }
 };
 </script>
 
 <style scoped>
+
+.button-style{
+    margin: 5px;
+}
+
 button {
     width: 100%;
 
@@ -33,19 +38,23 @@ button {
 
 button:hover {
     background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
 }
 
 button.secundaria:hover{
     color: #fff;
+    border: 1px solid var(--secondary-color);
 }
 
 .primaria {
     background-color: var(--primary-color);
     color: #fff;
+    border: 1px solid var(--primary-color);
 }
 
 .secundaria {
     background-color: #fff;
     color: #333;
+    border: 1px solid var(--primary-color);
 }
 </style>

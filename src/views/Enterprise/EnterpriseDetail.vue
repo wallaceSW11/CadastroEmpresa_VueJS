@@ -8,6 +8,8 @@
                     <InputLabel
                         label="Identification (CNPJ)"
                         v-model="enterprise.identification"
+                        autoFocus
+                        mask="##.###.###/####-##"
                     />
                 </div>
                 <div class="row col-sm-8">
@@ -33,10 +35,20 @@
             </div>
         </div>
 
-        <div>
+        <div :class="this.$route.params.id ? 'action-footer-left' : 'action-footer'">
+            <div class="check-keep-adding" v-if="!this.$route.params.id">
+                <label>
+                    <input
+                        class="check-left"
+                        type="checkbox"
+                        v-model="keepAdding"
+                        name="inputKeepAdding"
+                    />
+                    Keep adding</label
+                >
+            </div>
             <div class="actions">
                 <Button text="Save" :callback="saveRegistration" />
-                <div class="space"></div>
                 <Button
                     text="Cancel"
                     :callback="cancelRegistration"
@@ -65,6 +77,7 @@ export default {
     data() {
         return {
             enterprise: new Enterprise(),
+            keepAdding: true,
         };
     },
     mounted() {
@@ -96,15 +109,25 @@ export default {
             }
 
             if (this.enterprise.id == null) {
+                console.log(this.enterprise.identification);
+                let newEnterprise = new Enterprise(this.enterprise);
+                newEnterprise.identification = newEnterprise.identification.replace('.', '').replace('/', '').replace('-', '');
+                console.log(newEnterprise.identification);
+
                 enterpriseService
-                    .createEnterprise(this.enterprise)
+                    .createEnterprise(newEnterprise)
                     .then(() => {
                         Message.information(
                             "success",
                             "",
                             "Successfull created"
                         );
-                        this.$router.push({ name: "Enterprises" });
+                        if (this.keepAdding){
+                            this.enterprise = new Enterprise();
+                        } else {
+                            this.$router.push({ name: "Enterprises" });
+                        }
+
                     })
                     .catch((error) => {
                         this.$swal({
@@ -122,7 +145,9 @@ export default {
                 .then(() => {
                     this.$router.push({ name: "Enterprises" });
                 })
-                .catch((error) => Message.information("error", "Failure", error));
+                .catch((error) =>
+                    Message.information("error", "Failure", error)
+                );
         },
         cancelRegistration() {
             this.$router.push({ name: "Enterprises" });
@@ -132,10 +157,27 @@ export default {
 </script>
 
 <style scoped>
+
+.action-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action-footer-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
 .actions {
     display: flex;
     flex-direction: row;
-    float: right;
+    justify-content: space-between;
+}
+
+.check-keep-adding{
+    margin-top: 10px;
 }
 
 .space {
