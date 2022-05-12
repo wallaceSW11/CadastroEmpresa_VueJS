@@ -5,11 +5,12 @@
         <div class="content" id="enterpriseData">
             <div class="row">
                 <div class="row col-sm-3 min-px">
-                    <InputLabel
+                    <InputLabelMask
                         label="Identification (CNPJ)"
                         v-model="enterprise.identification"
                         autoFocus
                         mask="##.###.###/####-##"
+                        ref="inputIdentification"
                     />
                 </div>
                 <div class="row col-sm-8">
@@ -62,6 +63,7 @@
 <script>
 import Title from "@/components/title/Title.vue";
 import InputLabel from "@/components/input/InputLabel.vue";
+import InputLabelMask from "@/components/input/InputLabelMask.vue";
 import Button from "@/components/button/Button.vue";
 import Enterprise from "@/models/Enterprise";
 import enterpriseService from "@/services/enterprise-service";
@@ -72,6 +74,7 @@ export default {
     components: {
         Title,
         InputLabel,
+        InputLabelMask,
         Button,
     },
     data() {
@@ -109,18 +112,16 @@ export default {
             }
 
             if (this.enterprise.id == null) {
-                console.log(this.enterprise.identification);
                 let newEnterprise = new Enterprise(this.enterprise);
                 newEnterprise.identification = newEnterprise.identification.replace('.', '').replace('/', '').replace('-', '');
-                console.log(newEnterprise.identification);
 
                 enterpriseService
                     .createEnterprise(newEnterprise)
                     .then(() => {
                         Message.information(
-                            "success",
-                            "",
-                            "Successfull created"
+                            'success',
+                            '',
+                            'Successfull created'
                         );
                         if (this.keepAdding){
                             this.enterprise = new Enterprise();

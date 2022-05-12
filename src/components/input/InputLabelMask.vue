@@ -1,7 +1,7 @@
 <template>
     <div>
         <label for="input" class="labelClass">{{ label }}</label> <br />
-        <input :type="type" :placeholder="placeHolder" v-model="inputValue" ref="myInput"/>
+        <input :type="type" :placeholder="placeHolder" v-model="inputValue" ref="myInput" v-mask="localMask"/>
     </div>
 </template>
 
@@ -17,7 +17,8 @@ export default {
         type: { type: String, default: "text" },
         placeHolder: { type: String, default: '' },
         value: { type: String, default: '' },
-        autoFocus: { type: Boolean, default: false}
+        autoFocus: { type: Boolean, default: false},
+        mask: { type: String, default: ''}
     },
     data() {
         return {
@@ -26,6 +27,14 @@ export default {
     },
     mounted() {
         if (this.autoFocus) {
+            this.$refs.myInput.focus();
+        }
+
+        this.localMask = this.mask;
+
+    },
+    methods: {
+        inputFocus() {
             this.$refs.myInput.focus();
         }
     },

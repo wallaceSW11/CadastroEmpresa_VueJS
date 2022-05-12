@@ -1,14 +1,13 @@
 <template>
     <div class="container">
-        <div class="logo"><img src="../../src/assets/logo.png" alt="" /></div>
-        <div class="title"><h1>ISS-Easy</h1></div>
+        <div class="logo"><img src="../../src/assets/enterprises.png" alt="" /></div>
         <div class="login">
             <InputLabel
                 label="Code"
                 placeHolder="Access code"
                 v-model="user.code"
             />
-            <InputLabel label="Password" type="password" v-model="user.password" />
+            <InputLabel label="Password" type="password" v-model="user.password" :placeHolder="'******'" />
             <Button text="Sign in" :callback="signIn" />
         </div>
     </div>
@@ -19,6 +18,8 @@ import InputLabel from "@/components/input/InputLabel.vue";
 import Button from "@/components/button/Button.vue";
 import User from "@/models/User";
 import userService from "@/services/user-service.js";
+import Message from "@/utils/messages/message";
+
 
 export default {
     name: "Login",
@@ -35,12 +36,12 @@ export default {
         signIn() {
 
             if (!this.user.modelValid()) {
-                alert("Code and password must be informed");
+                Message.information('warning', '', 'Code and password must be informed');
                 return;
             }
 
             if (!userService.login(this.user.code, this.user.password)) {
-                alert("Code or password invalid!");
+                Message.information('warning', '', 'Code or password is invalid!');
                 return;
             }
 

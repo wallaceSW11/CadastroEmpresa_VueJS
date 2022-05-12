@@ -3,7 +3,7 @@ export default class Enterprise {
         obj = obj || {}
 
         this.id = obj.id;
-        this.identification = obj.identification ? obj.identification.replace('.', '').replace('/', '') : '';
+        this.identification = obj.identification ? obj.identification.replace('.', '').replace('/', '').replace('-', '') : '';
         this.name = obj.name;
         this.city = obj.city;
         this.provider = obj.provider;
