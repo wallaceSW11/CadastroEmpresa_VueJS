@@ -1,52 +1,40 @@
 <template>
     <div class="container">
         <Title text="Company details" />
+        <label for="">asfsadfas</label>
 
-        <div class="content" id="enterpriseData">
-            <div class="row">
-                <div class="row col-sm-3 min-px">
-                    <InputLabelMask
-                        label="Identification (CNPJ)"
-                        v-model="enterprise.identification"
-                        autoFocus
-                        mask="##.###.###/####-##"
-                        ref="inputIdentification"
-                    />
-                </div>
-                <div class="row col-sm-8">
+          <div class="form-row">
+            <div id="identification">
+                <InputLabel
+                    label="Identification (CNPJ)"
+                    v-model="enterprise.identification"
+                    mask="##.###.###/####-##"
+                    ref="inputIdentification"
+                    autoFocus
+                />
+            </div>
+                <div id="corporate-name">
                     <InputLabel
                         label="Corporate name"
                         v-model="enterprise.name"
                     />
                 </div>
-                <div class="row col-sm-2 mt-4">
-                    <div class="form-check-inline"></div>
-                </div>
+        </div>
+        <div class="form-row">
+            <div class="fullsize">
+                <InputLabel label="City" v-model="enterprise.city" />
             </div>
-            <div class="row">
-                <div class="row col-sm-4">
-                    <InputLabel label="City" v-model="enterprise.city" />
-                </div>
-                <div class="row col-sm-4">
-                    <InputLabel
-                        label="Provider"
-                        v-model="enterprise.provider"
-                    />
-                </div>
+            <div class="fullsize">
+                <InputLabel label="State" v-model="enterprise.provider" />
+            </div>
+            <div class="fullsize">
+                <InputLabel label="Country" v-model="enterprise.provider" />
             </div>
         </div>
 
-        <div :class="this.$route.params.id ? 'action-footer-left' : 'action-footer'">
-            <div class="check-keep-adding" v-if="!this.$route.params.id">
-                <label>
-                    <input
-                        class="check-left"
-                        type="checkbox"
-                        v-model="keepAdding"
-                        name="inputKeepAdding"
-                    />
-                    Keep adding</label
-                >
+        <div class="footer">
+            <div :class="newRegister ? 'keep-adding' : 'hide-keep-adding' " >
+                <Checkbox text="Keep adding" v-model="keepAdding" />
             </div>
             <div class="actions">
                 <Button text="Save" :callback="saveRegistration" />
@@ -63,8 +51,8 @@
 <script>
 import Title from "@/components/title/Title.vue";
 import InputLabel from "@/components/input/InputLabel.vue";
-import InputLabelMask from "@/components/input/InputLabelMask.vue";
 import Button from "@/components/button/Button.vue";
+import Checkbox from "@/components/checkbox/Checkbox.vue";
 import Enterprise from "@/models/Enterprise";
 import enterpriseService from "@/services/enterprise-service";
 import Message from "@/utils/messages/message";
@@ -74,16 +62,19 @@ export default {
     components: {
         Title,
         InputLabel,
-        InputLabelMask,
         Button,
+        Checkbox
     },
     data() {
         return {
             enterprise: new Enterprise(),
             keepAdding: true,
+            newRegister: true
         };
     },
     mounted() {
+        this.newRegister = !this.$route.params.id;
+
         let id = this.$route.params.id;
         if (!id) return;
         this.getEnterpriseById(id);
@@ -113,22 +104,24 @@ export default {
 
             if (this.enterprise.id == null) {
                 let newEnterprise = new Enterprise(this.enterprise);
-                newEnterprise.identification = newEnterprise.identification.replace('.', '').replace('/', '').replace('-', '');
+                newEnterprise.identification = newEnterprise.identification
+                    .replace(".", "")
+                    .replace("/", "")
+                    .replace("-", "");
 
                 enterpriseService
                     .createEnterprise(newEnterprise)
                     .then(() => {
                         Message.information(
-                            'success',
-                            '',
-                            'Successfull created'
+                            "success",
+                            "",
+                            "Successfull created"
                         );
-                        if (this.keepAdding){
+                        if (this.keepAdding) {
                             this.enterprise = new Enterprise();
                         } else {
                             this.$router.push({ name: "Enterprises" });
                         }
-
                     })
                     .catch((error) => {
                         this.$swal({
@@ -159,41 +152,44 @@ export default {
 
 <style scoped>
 
-.action-footer{
+.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.action-footer-left{
+.keep-adding {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    align-items: center;
 }
 
 .actions {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
-.check-keep-adding{
-    margin-top: 10px;
+.hide-keep-adding {
+    visibility: hidden;
 }
 
-.space {
-    margin-left: 10px;
+.form-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1 1 auto;
 }
 
-.content {
-    display: none;
+#identification {
+    flex: 0 0 150px;
 }
 
-#enterpriseData {
-    display: block;
+#corporate-name {
+    flex: 3 1 200px;
+}
+.fullsize{
+    flex: 1 1 auto;
 }
 
-.min-px {
-    min-width: 145px;
-}
 </style>

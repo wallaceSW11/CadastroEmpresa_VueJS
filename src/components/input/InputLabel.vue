@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <label for="input" class="labelClass">{{ label }}</label> <br />
-        <input :type="type" :placeholder="placeHolder" v-model="inputValue" ref="myInput"/>
+    <div class="flex">
+        <label for="input" class="labelClass">{{ label }}</label>
+        <input v-if="useMask" v-mask="localMask" type="text" :placeholder="placeHolder" v-model="inputValue" ref="myInput"/>
+        <input v-else :type="type" :placeholder="placeHolder" v-model="inputValue" ref="myInput"/>
     </div>
 </template>
 
@@ -17,12 +18,18 @@ export default {
         type: { type: String, default: "text" },
         placeHolder: { type: String, default: '' },
         value: { type: String, default: '' },
-        autoFocus: { type: Boolean, default: false}
+        autoFocus: { type: Boolean, default: false},
+        mask: { type: String, default: ''}
     },
     data() {
         return {
-            localMask: ''
+            localMask: '',
+            useMask: false
         };
+    },
+    created() {
+        this.useMask = !!this.mask;
+        this.localMask = this.mask;
     },
     mounted() {
         if (this.autoFocus) {
@@ -60,5 +67,12 @@ input {
     min-width: 165px;
 }
 
+.flex {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 5px;
+}
 
 </style>
