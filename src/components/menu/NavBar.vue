@@ -1,4 +1,7 @@
 <template>
+<div class="main-menu">
+    <div class="menu-mobile"><button> X </button></div>
+    <div class="menu-desk">
     <ul class="menu">
         <li :class="pagina == 0 ? 'selecionado' : 'disponivel'">
             <a @click="irParaPagina(0, 'Dashboard')">Dashboard</a>
@@ -16,6 +19,8 @@
             <a @click="irParaPagina(4, 'Login')">Sair</a>
         </li>
     </ul>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -90,4 +95,28 @@ li.disponivel a:hover {
     color: #fff;
 }
 
+.main-menu{
+    
+    width: 100%;
+}
+
+.menu-mobile {
+    display: none;
+    width: 100%;
+    height: 54px;
+    background: var(--primary-color);
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-mobile {
+    color: blue;
+    display: block;
+  }
+
+  .menu-desk {
+      display: none;
+  }
+
+  
+}
 </style>
