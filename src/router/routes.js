@@ -2,8 +2,8 @@ import Login from '@/views/Login.vue';
 import Dashboard from '@/views/Dashboard.vue';
 import Enterprises from '@/views/Enterprise/Enterprises.vue';
 import EnterpriseDetail from '@/views/Enterprise/EnterpriseDetail.vue';
-import Relatorios from '@/views/Relatorios.vue';
-import Ferramentas from '@/views/Ferramentas.vue';
+import Reports from '@/views/Reports.vue';
+import Tools from '@/views/Tools.vue';
 
 const routes = [
     {
@@ -35,17 +35,17 @@ const routes = [
       meta: { requiredAuth: true}
     },
     {
-      path: '/relatorios',
-      name: 'Relatorios',
-      component: Relatorios,
-      title: 'Relatórios',
+      path: '/reports',
+      name: 'Reports',
+      component: Reports,
+      title: 'Reports',
       meta: { requiredAuth: true}
     },
     {
-      path: '/ferramentas',
-      name: 'Ferramentas',
-      component: Ferramentas,
-      title: 'Ferramentas',
+      path: '/tools',
+      name: 'Tools',
+      component: Tools,
+      title: 'Tools',
       meta: { requiredAuth: true}
     }
 

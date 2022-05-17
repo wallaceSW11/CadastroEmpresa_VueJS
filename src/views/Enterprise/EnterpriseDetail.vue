@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <Title text="Company details" />
-        <label for="">asfsadfas</label>
 
           <div class="form-row">
             <div id="identification">
@@ -28,7 +27,7 @@
                 <InputLabel label="State" v-model="enterprise.provider" />
             </div>
             <div class="fullsize">
-                <InputLabel label="Country" v-model="enterprise.provider" />
+                <InputLabel label="Country" />
             </div>
         </div>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Title text="Relatórios" />
+        <Title text="Tools" />
     </div>
 </template>
 

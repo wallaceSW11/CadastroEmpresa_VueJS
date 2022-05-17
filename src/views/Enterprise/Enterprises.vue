@@ -21,7 +21,7 @@
                 <tbody>
                     <tr v-show="enterprises.length == 0">
                         <td colspan="5" class="text-center">
-                            <span>There are no enterprise registered</span>
+                            <span>There are no enterprises registered</span>
                         </td>
                     </tr>
                     <tr v-for="enterprise in enterprises" :key="enterprise.id">
