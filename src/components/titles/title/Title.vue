@@ -14,9 +14,4 @@ export default {
 }
 </script>
 
-<style scoped>
-  h2{
-      color: var(--primary-color);
-  }
-
-</style>
+<style lang="scss" src="./style.scss" scoped />

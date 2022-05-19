@@ -48,10 +48,10 @@
 </template>
 
 <script>
-import Title from "@/components/title/Title.vue";
-import InputLabel from "@/components/input/InputLabel.vue";
-import Button from "@/components/button/Button.vue";
-import Checkbox from "@/components/checkbox/Checkbox.vue";
+import Title from "@/components/titles/title/Title.vue";
+import InputLabel from "@/components/inputs/input/InputLabel.vue";
+import Button from "@/components/buttons/button/Button.vue";
+import Checkbox from "@/components/inputs/checkbox/Checkbox.vue";
 import Enterprise from "@/models/Enterprise";
 import enterpriseService from "@/services/enterprise-service";
 import Message from "@/utils/messages/message";
@@ -149,46 +149,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-.footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.keep-adding {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.actions {
-    display: flex;
-    flex-direction: row;
-}
-
-.hide-keep-adding {
-    visibility: hidden;
-}
-
-.form-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    flex: 1 1 auto;
-}
-
-#identification {
-    flex: 0 0 150px;
-}
-
-#corporate-name {
-    flex: 3 1 200px;
-}
-.fullsize{
-    flex: 1 1 auto;
-}
-
-</style>
+<style lang="scss" src="./style.scss" scoped />

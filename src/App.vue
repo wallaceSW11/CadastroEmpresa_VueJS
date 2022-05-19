@@ -7,7 +7,7 @@
 
 <script>
 
-import NavBar from '@/components/menu/NavBar.vue';
+import NavBar from '@/components/menu/navbar/NavBar.vue';
 
 export default {
   components:{
@@ -19,12 +19,12 @@ export default {
 
 <style>
 
-:root {
+/* :root {
   --primary-color: #002984;
   --secondary-color: #3f51b5;
   --primary-font-color: white;
   --backgroud-color-container: #f5f5f5;
-}
+} */
 
 body {
   margin: 0;

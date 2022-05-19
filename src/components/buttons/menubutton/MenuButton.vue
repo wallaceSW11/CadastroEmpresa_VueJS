@@ -32,40 +32,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.menu-button {
-    margin-left: 5px;
-    display: flex;
-    width: 40px;
-    justify-content: center;
-}
-
-.hamburger {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.hamburger .line {
-    display: block;
-    width: 40px;
-    height: 3px;
-    background-color: var(--primary-font-color);
-    margin-block: 10px;
-    border-radius: 4px;
-    transition: transform .5s;
-    opacity: .25s;
-}
-
-.hamburger.active .line:nth-child(1){
-    transform: translateY(13px)
-    rotate(45deg);
-}
-.hamburger.active .line:nth-child(3){
-    transform: translateY(-13px)
-    rotate(-45deg);
-}
-
-</style>
+<style lang="scss" src="./style.scss" scoped />

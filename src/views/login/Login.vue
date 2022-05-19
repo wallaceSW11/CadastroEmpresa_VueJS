@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="logo"><img src="../../src/assets/enterprises.png" alt="" /></div>
+        <div class="logo"><img src="@/assets/enterprises.png" alt="" /></div>
         <div class="login">
             <InputLabel
                 label="Code"
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import InputLabel from "@/components/input/InputLabel.vue";
-import Button from "@/components/button/Button.vue";
+import InputLabel from "@/components/inputs/input/InputLabel.vue";
+import Button from "@/components/buttons/button/Button.vue";
 import User from "@/models/User";
 import userService from "@/services/user-service.js";
 import Message from "@/utils/messages/message";
@@ -53,24 +53,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.container {
-    border: 1px solid var(--primary-color);
-    min-height: 500px;
-    max-width: 400px;
-    border-radius: 5px;
-}
-
-img {
-    height: 100px;
-}
-
-.logo {
-    display: flex;
-    justify-content: center;
-}
-
-.title {
-    text-align: center;
-}
-</style>
+<style lang="scss" src="./style.scss" scoped />

@@ -34,14 +34,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-.check {
-    display: flex;
-    align-content: center;
-    flex-direction: row;
-    padding: 0 5px;
-    width: 100%;
-}
-
-</style>
+<style lang="scss" src="./style.scss" scoped />

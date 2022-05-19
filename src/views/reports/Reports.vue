@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <Title text="Tools" />
+        <Title text="Reports" />
     </div>
 </template>
 
 <script>
-import Title from "@/components/title/Title.vue";
+import Title from "@/components/titles/title/Title.vue";
 
 export default {
     components: {
@@ -13,3 +13,5 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" src="./style.scss" scoped />

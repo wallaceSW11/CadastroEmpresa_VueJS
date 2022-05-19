@@ -51,28 +51,4 @@ export default {
 };
 </script>
 
-<style scoped>
-input {
-    width: 100%;
-    padding: 5px 10px;
-    margin-bottom: 20px;
-    display: inline-block;
-    border: 1px solid var(--primary-color);
-    outline: none;
-    box-sizing: border-box;
-    min-width: 145px;
-}
-
-.labelClass{
-    min-width: 165px;
-}
-
-.flex {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 0 5px;
-}
-
-</style>
+<style lang="scss" src="./style.scss" scoped />

@@ -50,7 +50,7 @@
 
 <script>
 import Enterprise from "@/models/Enterprise";
-import Title from "@/components/title/Title.vue";
+import Title from "@/components/titles/title/Title.vue";
 import BooleanString from "@/utils/conversores/BooleanString";
 import enterpriseService from "@/services/enterprise-service";
 import Message from "@/utils/messages/message";
@@ -121,21 +121,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.identification {
-    max-width: 80px;
-    min-width: 70px;
-}
-.text-center {
-    text-align: center;
-}
-
-.space-around {
-    display: flex;
-    justify-content: space-around;
-}
-
-.pointer {
-    cursor: pointer;
-}
-</style>
+<style lang="scss" src="./style.scss" scoped />
