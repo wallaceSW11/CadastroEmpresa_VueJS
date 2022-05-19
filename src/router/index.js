@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
     if (to.name == 'Login'){
 
         if (token){
-          next({name: 'Dashboad'});
+          next({name: 'Dashboard'});
         } else {
           next();
         }

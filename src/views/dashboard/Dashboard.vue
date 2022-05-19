@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Title text="Dashboad" />
+        <Title text="Dashboard" />
 
         <div class="content">
             <table class="table">

@@ -1,33 +1,21 @@
 <template>
-    <div class="main-menu">
-        <div class="menu-mobile">
-            <MenuButton :callback="toggleMenu" :clicked="menuClose" />
-        </div>
-        <div class="menu-desk">
-
-            <ul :class="['menu', menuClose ? 'show-menu-mobile' : '']">
-                <li :class="pagina == 0 ? 'selecionado' : 'disponivel'">
-                    <a @click="irParaPagina(0, 'Dashboard')">Dashboard</a>
-                </li>
-                <li :class="pagina == 1 ? 'selecionado' : 'disponivel'">
-                    <a @click="irParaPagina(1, 'Enterprises')">Enterprises</a>
-                </li>
-                <li :class="pagina == 2 ? 'selecionado' : 'disponivel'">
-                    <a @click="irParaPagina(2, 'Reports')">Reports</a>
-                </li>
-                <li :class="pagina == 3 ? 'selecionado' : 'disponivel'">
-                    <a @click="irParaPagina(3, 'Tools')">Tools</a>
-                </li>
-                <li
-                    id="signout"
-                    :class="pagina == 4 ? 'selecionado' : 'disponivel'"
-                >
-                    <a @click="irParaPagina(4, 'Login')">Sign out</a>
-                </li>
-            </ul>
-
-        </div>
-    </div>
+    <header>
+        <nav>
+            <div class="logo">EnterPRISES</div>
+            <div class="menu">
+                <div :class="['item-menu', pagina == 0 ? 'selecionado' : 'disponivel']" @click="goToPage(0, 'Dashboard')">Dashboard</div>
+                <div :class="['item-menu', pagina == 1 ? 'selecionado' : 'disponivel']" @click="goToPage(1, 'Enterprises')">Enterprises</div>
+                <div :class="['item-menu', pagina == 2 ? 'selecionado' : 'disponivel']" @click="goToPage(2, 'Reports')">Reports</div>
+                <div :class="['item-menu', pagina == 3 ? 'selecionado' : 'disponivel']" @click="goToPage(3, 'Tools')">Tools</div>
+            </div>
+            <div class="sign-out">
+                <div :class="['item-menu', pagina == 4 ? 'selecionado' : 'disponivel']" @click="goToPage(4, 'Login')">Sign out</div>
+            </div>
+            <div class="menu-mobile">
+                <MenuButton :callback="toggleMenu" :clicked="menuClose" />
+            </div>
+        </nav>
+    </header>
 </template>
 
 <script>
@@ -38,20 +26,23 @@ export default {
     data() {
         return {
             pagina: { type: Number, default: 0 },
+            page: { type: String, default: 'Dashboard'},
             menuClose: false,
+            pages: ['Dashboard', 'Enterprises', 'Reports', 'Tools', 'Login'],
         };
     },
     components: {
         MenuButton,
     },
     methods: {
-        irParaPagina(numeroPagina, pagina) {
-
+        goToPage(numeroPagina, pagina) {
             if (this.pagina == numeroPagina) return;
 
             if (numeroPagina == 4) {
                 localStorage.removeItem("user");
             }
+
+            this.page = pagina;
 
             this.pagina = numeroPagina;
             this.$router.push({ name: pagina });
@@ -63,6 +54,13 @@ export default {
     mounted() {
         this.pagina = this.$route.name == "Enterprises" ? 1 : 0;
     },
+    computed: {
+        activePage: function() {
+            return {
+
+            }
+        }
+    }
 };
 </script>
 
