@@ -33,6 +33,9 @@ export default {
         };
     },
     methods: {
+        opa() {
+            alert('opa')
+        },
         signIn() {
 
             if (!this.user.modelValid()) {

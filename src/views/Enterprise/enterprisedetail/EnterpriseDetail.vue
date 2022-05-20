@@ -5,18 +5,16 @@
           <div class="form-row">
             <div id="identification">
                 <InputLabel
-                    label="Identification (CNPJ)"
+                    v-bind="identificationData"
                     v-model="enterprise.identification"
-                    mask="##.###.###/####-##"
-                    ref="inputIdentification"
                     autoFocus
                 />
             </div>
                 <div id="corporate-name">
-                    <InputLabel
+                    <InputLabel_2
                         label="Corporate name"
                         v-model="enterprise.name"
-                    />
+                    /> {{`opa ${enterprise.name}`}}
                 </div>
         </div>
         <div class="form-row">
@@ -50,6 +48,7 @@
 <script>
 import Title from "@/components/titles/title/Title.vue";
 import InputLabel from "@/components/inputs/input/InputLabel.vue";
+import InputLabel_2 from "@/components/inputs/input/InputLabel_2.vue";
 import Button from "@/components/buttons/button/Button.vue";
 import Checkbox from "@/components/inputs/checkbox/Checkbox.vue";
 import Enterprise from "@/models/Enterprise";
@@ -61,6 +60,7 @@ export default {
     components: {
         Title,
         InputLabel,
+        InputLabel_2,
         Button,
         Checkbox
     },
@@ -68,7 +68,11 @@ export default {
         return {
             enterprise: new Enterprise(),
             keepAdding: true,
-            newRegister: true
+            newRegister: true,
+            identificationData: {
+                label: 'Identification (CNPJ)',                
+                mask: '##.###.###/####-##'
+            }
         };
     },
     mounted() {
