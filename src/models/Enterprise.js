@@ -6,7 +6,8 @@ export default class Enterprise {
         this.identification = obj.identification ? obj.identification.replace('.', '').replace('/', '').replace('-', '') : '';
         this.name = obj.name;
         this.city = obj.city;
-        this.provider = obj.provider;
+        this.state = obj.state;
+        this.country = obj.country;
 
         this._invalidDescription = [];
     }
@@ -26,8 +27,12 @@ export default class Enterprise {
             this._invalidDescription.push('\nThe city must be informed')
         }
 
-        if (!this.provider) {
-            this._invalidDescription.push('\nThe provider must be informed')
+        if (!this.state) {
+            this._invalidDescription.push('\nThe State must be informed')
+        }
+
+        if (!this.country) {
+            this._invalidDescription.push('\nThe Country must be informed')
         }
 
         return this._invalidDescription.length > 0;

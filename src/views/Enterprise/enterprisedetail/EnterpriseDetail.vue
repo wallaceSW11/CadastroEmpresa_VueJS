@@ -22,10 +22,10 @@
                 <InputLabel label="City" v-model="enterprise.city" />
             </div>
             <div class="fullsize">
-                <InputLabel label="State" v-model="enterprise.provider" />
+                <InputLabel label="State" v-model="enterprise.state" />
             </div>
             <div class="fullsize">
-                <InputLabel label="Country" />
+                <InputLabel label="Country" v-model="enterprise.country"/>
             </div>
         </div>
 

@@ -1,16 +1,65 @@
 <template>
     <header>
         <nav>
-            <div class="logo">EnterPRISES</div>
-            <div id="menuu" :class="menuOpened ? 'menu-compacted show-sign-out' : 'menu'">
-                <div :class="['item-menu', pagina == 0 ? 'selecionado' : 'disponivel']" @click="goToPage(0, 'Dashboard')">Dashboard</div>
-                <div :class="['item-menu', pagina == 1 ? 'selecionado' : 'disponivel']" @click="goToPage(1, 'Enterprises')">Enterprises</div>
-                <div :class="['item-menu', pagina == 2 ? 'selecionado' : 'disponivel']" @click="goToPage(2, 'Reports')">Reports</div>
-                <div :class="['item-menu', pagina == 3 ? 'selecionado' : 'disponivel']" @click="goToPage(3, 'Tools')">Tools</div>
-                <div v-if="menuOpened" class="item-menu" @click="goToPage(4, 'Login')">Sign out</div>
+            <div class="logo">Enter<span>PRISES</span></div>
+            <div
+                id="menuu"
+                :class="menuOpened ? 'menu-compacted show-sign-out' : 'menu'"
+            >
+                <div
+                    :class="[
+                        'item-menu',
+                        selectedPage == pages[0] ? 'selected' : 'available',
+                    ]"
+                    @click="goToPage('Dashboard')"
+                >
+                    Dashboard
+                </div>
+                <div
+                    :class="[
+                        'item-menu',
+                        selectedPage == pages[1] ? 'selected' : 'available',
+                    ]"
+                    @click="goToPage('Enterprises')"
+                >
+                    Enterprises
+                </div>
+                <div
+                    :class="[
+                        'item-menu',
+                        selectedPage == pages[2] ? 'selected' : 'available',
+                    ]"
+                    @click="goToPage('Reports')"
+                >
+                    Reports
+                </div>
+                <div
+                    :class="[
+                        'item-menu',
+                        selectedPage == pages[3] ? 'selected' : 'available',
+                    ]"
+                    @click="goToPage('Tools')"
+                >
+                    Tools
+                </div>
+                <div
+                    v-if="menuOpened"
+                    class="item-menu"
+                    @click="goToPage('Login')"
+                >
+                    Sign out
+                </div>
             </div>
             <div class="sign-out">
-                <div :class="['item-menu', pagina == 4 ? 'selecionado' : 'disponivel']" @click="goToPage(4, 'Login')">Sign out</div>
+                <div
+                    :class="[
+                        'item-menu',
+                        selectedPage == pages[4] ? 'selected' : 'available',
+                    ]"
+                    @click="goToPage('Login')"
+                >
+                    Sign out
+                </div>
             </div>
             <div class="menu-mobile">
                 <MenuButton :callback="toggleMenu" :clicked="menuOpened" />
@@ -26,45 +75,31 @@ export default {
     name: "NavBar",
     data() {
         return {
-            pagina: { type: Number, default: 0 },
-            page: { type: String, default: 'Dashboard'},
+            selectedPage: { type: String, default: "Dashboard" },
+            pages: ["Dashboard", "Enterprises", "Reports", "Tools", "Login"],
             menuOpened: false,
-            pages: ['Dashboard', 'Enterprises', 'Reports', 'Tools', 'Login'],
         };
     },
     components: {
         MenuButton,
     },
     methods: {
-        goToPage(numeroPagina, pagina) {
-            if (this.pagina == numeroPagina) return;
+        goToPage(page) {
+            if (this.selectedPage == page) return;
 
-            if (numeroPagina == 4) {
-                localStorage.removeItem("user");
-            }
+            if (page == "Login") localStorage.removeItem("user");
 
-            this.page = pagina;
-
-            this.pagina = numeroPagina;
-            this.$router.push({ name: pagina });
+            this.selectedPage = page;
+            this.$router.push({ name: page });
         },
         toggleMenu() {
             this.menuOpened = !this.menuOpened;
-
-
-
         },
     },
     mounted() {
-        this.pagina = this.$route.name == "Enterprises" ? 1 : 0;
+        this.selectedPage =
+            this.$route.name == "Enterprises" ? this.pages[1] : this.pages[0];
     },
-    computed: {
-        activePage: function() {
-            return {
-
-            }
-        }
-    }
 };
 </script>
 

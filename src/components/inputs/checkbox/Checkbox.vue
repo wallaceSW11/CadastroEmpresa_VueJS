@@ -1,18 +1,18 @@
 <template>
     <div class="check">
-
         <label>
             <input id="check" type="checkbox" v-model="inputValue" />
-             {{ text }}</label>
+            {{ text }}</label
+        >
     </div>
 </template>
 
 <script>
 export default {
-    name: 'checkbox',
+    name: "checkbox",
     model: {
-        prop: 'value',
-        event: 'onChange',
+        prop: "value",
+        event: "onChange",
     },
     props: {
         text: { type: String, default: "" },

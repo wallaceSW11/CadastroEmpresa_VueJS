@@ -5,10 +5,11 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="hideColumns">Identification</th>
+                        <th class="identification hideColumns">Identification</th>
                         <th>Name</th>
                         <th class="hideColumns">City</th>
-                        <th class="hideColumns">Provider</th>
+                        <th class="hideColumns">State</th>
+                        <th class="hideColumns">Country</th>
                         <th class="space-around">
                             <i>Actions</i>
                         </th>
@@ -21,12 +22,13 @@
                         </td>
                     </tr>
                     <tr v-for="enterprise in enterprises" :key="enterprise.id">
-                        <td class="hideColumns">
-                            {{ enterprise.identification }}
+                        <td class="identification hideColumns">
+                            {{ enterprise.identification | identificationWithMask }}
                         </td>
                         <td>{{ enterprise.name }}</td>
                         <td class="hideColumns">{{ enterprise.city }}</td>
-                        <td class="hideColumns">{{ enterprise.provider }}</td>
+                        <td class="hideColumns">{{ enterprise.state }}</td>
+                        <td class="hideColumns">{{ enterprise.country }}</td>
                         <td class="text-center">
                             <i
                                 @click="editEnterprise(enterprise)"
@@ -69,6 +71,9 @@ export default {
         booleanToString(valor) {
             return BooleanString.booleanToString(valor);
         },
+        identificationWithMask(value) {
+            return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+        }
     },
 
     mounted() {

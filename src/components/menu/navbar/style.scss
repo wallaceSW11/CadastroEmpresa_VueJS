@@ -21,6 +21,10 @@ nav {
         "Lucida Sans", Arial, sans-serif;
 }
 
+.logo > span{
+    border: 1px solid $primaryColorFont;
+}
+
 .menu {
     display: flex;
     flex-direction: row;
@@ -60,16 +64,16 @@ nav {
   display: flex;
 }
 
-.selecionado {
+.selected {
     background-color: $secondaryColor !important;
     color: #fff;
 }
 
-.disponivel {
+.available {
     background-color: $primaryColor;
 }
 
-li.disponivel a:hover {
+li.available a:hover {
     background-color: $secondaryColor;
     color: #fff;
 }
