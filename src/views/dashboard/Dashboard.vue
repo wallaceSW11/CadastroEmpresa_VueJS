@@ -7,15 +7,15 @@
                 <thead>
                     <tr>
                         <th>Status</th>
-                        <th>Quantity</th>
+                        <th class="text-center">Quantity</th>
                     </tr>
                     <tr>
                         <td>Enterprises registred</td>
-                        <td>2</td>
+                        <td class="text-center">2</td>
                     </tr>
                     <tr>
                         <td>Enterprises inactive</td>
-                        <td>2</td>
+                        <td class="text-center">2</td>
                     </tr>
                 </thead>
             </table>

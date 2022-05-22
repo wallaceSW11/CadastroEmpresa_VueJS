@@ -2,17 +2,18 @@
     <header>
         <nav>
             <div class="logo">EnterPRISES</div>
-            <div class="menu">
+            <div id="menuu" :class="menuOpened ? 'menu-compacted show-sign-out' : 'menu'">
                 <div :class="['item-menu', pagina == 0 ? 'selecionado' : 'disponivel']" @click="goToPage(0, 'Dashboard')">Dashboard</div>
                 <div :class="['item-menu', pagina == 1 ? 'selecionado' : 'disponivel']" @click="goToPage(1, 'Enterprises')">Enterprises</div>
                 <div :class="['item-menu', pagina == 2 ? 'selecionado' : 'disponivel']" @click="goToPage(2, 'Reports')">Reports</div>
                 <div :class="['item-menu', pagina == 3 ? 'selecionado' : 'disponivel']" @click="goToPage(3, 'Tools')">Tools</div>
+                <div v-if="menuOpened" class="item-menu" @click="goToPage(4, 'Login')">Sign out</div>
             </div>
             <div class="sign-out">
                 <div :class="['item-menu', pagina == 4 ? 'selecionado' : 'disponivel']" @click="goToPage(4, 'Login')">Sign out</div>
             </div>
             <div class="menu-mobile">
-                <MenuButton :callback="toggleMenu" :clicked="menuClose" />
+                <MenuButton :callback="toggleMenu" :clicked="menuOpened" />
             </div>
         </nav>
     </header>
@@ -27,7 +28,7 @@ export default {
         return {
             pagina: { type: Number, default: 0 },
             page: { type: String, default: 'Dashboard'},
-            menuClose: false,
+            menuOpened: false,
             pages: ['Dashboard', 'Enterprises', 'Reports', 'Tools', 'Login'],
         };
     },
@@ -48,7 +49,10 @@ export default {
             this.$router.push({ name: pagina });
         },
         toggleMenu() {
-            this.menuClose = !this.menuClose;
+            this.menuOpened = !this.menuOpened;
+
+
+
         },
     },
     mounted() {

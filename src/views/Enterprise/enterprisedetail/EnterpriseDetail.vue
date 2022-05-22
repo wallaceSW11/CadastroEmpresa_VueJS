@@ -2,20 +2,20 @@
     <div class="container">
         <Title text="Company details" />
 
-          <div class="form-row">
+        <div class="form-row">
             <div id="identification">
                 <InputLabel
                     v-bind="identificationData"
-                    v-model="enterprise.identification"
+                    v-model="identificationWithMask"
                     autoFocus
                 />
             </div>
-                <div id="corporate-name">
-                    <InputLabel_2
-                        label="Corporate name"
-                        v-model="enterprise.name"
-                    /> {{`opa ${enterprise.name}`}}
-                </div>
+            <div id="corporate-name">
+                <InputLabel_2
+                    label="Corporate name"
+                    v-model="enterprise.name"
+                />
+            </div>
         </div>
         <div class="form-row">
             <div class="fullsize">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="footer">
-            <div :class="newRegister ? 'keep-adding' : 'hide-keep-adding' " >
+            <div :class="newRegister ? 'keep-adding' : 'hide-keep-adding'">
                 <Checkbox text="Keep adding" v-model="keepAdding" />
             </div>
             <div class="actions">
@@ -62,7 +62,7 @@ export default {
         InputLabel,
         InputLabel_2,
         Button,
-        Checkbox
+        Checkbox,
     },
     data() {
         return {
@@ -70,9 +70,10 @@ export default {
             keepAdding: true,
             newRegister: true,
             identificationData: {
-                label: 'Identification (CNPJ)',                
-                mask: '##.###.###/####-##'
-            }
+                label: "Identification (CNPJ)",
+                mask: "##.###.###/####-##",
+            },
+            identificationWithMask: '',
         };
     },
     mounted() {
@@ -88,6 +89,7 @@ export default {
                 .getById(id)
                 .then((response) => {
                     this.enterprise = new Enterprise(response.data);
+                    this.identificationWithMask = this.enterprise.identification;
                 })
                 .catch((error) => {
                     console.log("Error trying to get enterprise by id: ");
@@ -106,14 +108,8 @@ export default {
             }
 
             if (this.enterprise.id == null) {
-                let newEnterprise = new Enterprise(this.enterprise);
-                newEnterprise.identification = newEnterprise.identification
-                    .replace(".", "")
-                    .replace("/", "")
-                    .replace("-", "");
-
                 enterpriseService
-                    .createEnterprise(newEnterprise)
+                    .createEnterprise(this.enterprise)
                     .then(() => {
                         Message.information(
                             "success",
@@ -122,6 +118,7 @@ export default {
                         );
                         if (this.keepAdding) {
                             this.enterprise = new Enterprise();
+                            this.identificationWithMask = '';
                         } else {
                             this.$router.push({ name: "Enterprises" });
                         }
@@ -148,6 +145,14 @@ export default {
         },
         cancelRegistration() {
             this.$router.push({ name: "Enterprises" });
+        },
+    },
+    watch: {
+        identificationWithMask() {
+            this.enterprise.identification = this.identificationWithMask
+                .replaceAll(".", "")
+                .replace("/", "")
+                .replace("-", "");
         },
     },
 };

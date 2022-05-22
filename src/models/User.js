@@ -7,7 +7,6 @@ export default class User {
     }
 
     modelValid(){
-        console.log('Invalid model');
         return !!(this.code && this.password);
     }
 }

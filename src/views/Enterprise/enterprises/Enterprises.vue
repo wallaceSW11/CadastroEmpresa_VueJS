@@ -5,16 +5,12 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Identification</th>
+                        <th class="hideColumns">Identification</th>
                         <th>Name</th>
-                        <th>City</th>
-                        <th>Provider</th>
+                        <th class="hideColumns">City</th>
+                        <th class="hideColumns">Provider</th>
                         <th class="space-around">
                             <i>Actions</i>
-                            <i
-                                @click="addEnterprise()"
-                                class="fas fa-solid fa-plus pointer icones-tabela"
-                            ></i>
                         </th>
                     </tr>
                 </thead>
@@ -25,26 +21,27 @@
                         </td>
                     </tr>
                     <tr v-for="enterprise in enterprises" :key="enterprise.id">
-                        <td class="identification">
+                        <td class="hideColumns">
                             {{ enterprise.identification }}
                         </td>
                         <td>{{ enterprise.name }}</td>
-                        <td>{{ enterprise.city }}</td>
-                        <td>{{ enterprise.provider }}</td>
-                        <td>
+                        <td class="hideColumns">{{ enterprise.city }}</td>
+                        <td class="hideColumns">{{ enterprise.provider }}</td>
+                        <td class="text-center">
                             <i
                                 @click="editEnterprise(enterprise)"
-                                class="fas fa-pencil-alt icones-tabela"
+                                class="fas fa-pencil-alt table-icons"
                             ></i>
                             <i
                                 @click="deleteEnterprise(enterprise)"
-                                class="fas fa-trash-alt icones-tabela"
+                                class="fas fa-trash-alt table-icons"
                             ></i>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <FloatButton :callback="addEnterprise" />
     </div>
 </template>
 
@@ -54,17 +51,20 @@ import Title from "@/components/titles/title/Title.vue";
 import BooleanString from "@/utils/conversores/BooleanString";
 import enterpriseService from "@/services/enterprise-service";
 import Message from "@/utils/messages/message";
+import FloatButton from "@/components/buttons/floatbutton/FloatButton.vue";
 
 export default {
     name: "Enterprises",
     data() {
         return {
             enterprises: [],
+            hideColumns: false,
         };
     },
     components: {
-        Title,
-    },
+    Title,
+    FloatButton
+},
     filters: {
         booleanToString(valor) {
             return BooleanString.booleanToString(valor);
@@ -74,7 +74,6 @@ export default {
     mounted() {
         this.getEnterprises();
     },
-
     methods: {
         getEnterprises() {
             enterpriseService
@@ -110,7 +109,11 @@ export default {
                     enterpriseService
                         .deleteEnterprise(enterprise.id)
                         .then(() => {
-                            Message.information("success", "Successfully deleted", '');
+                            Message.information(
+                                "success",
+                                "Successfully deleted",
+                                ""
+                            );
                             this.getEnterprises();
                         })
                         .catch((error) => alert(error));

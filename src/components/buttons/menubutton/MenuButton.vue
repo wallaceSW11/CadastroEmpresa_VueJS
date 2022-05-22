@@ -23,9 +23,7 @@ export default {
     },
     watch: {
         clicked() {
-            console.log('clicado');
             this.isActive = !this.isActive;
-
         }
     }
 
